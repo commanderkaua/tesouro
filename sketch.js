@@ -9,7 +9,7 @@ var boyparado;
 var PLAY=1;
 var END=0;
 var estado=1;
-estado= PLAY;
+estado = PLAY;
 
 function preload(){
   pathImg = loadImage("Road.png");
@@ -37,6 +37,7 @@ boy.scale=0.08;
 boy.depth = 3;
 boy.setCollider("circle",0,0,40);
 boy.debug = false;
+boy.addAnimation("morto", boyparado);
 
   
   
@@ -54,6 +55,7 @@ gameOver.scale = 0.5
 
 function draw() {
 
+  
   if(estado===PLAY){
   background(0);
   boy.x = World.mouseX;
@@ -88,15 +90,16 @@ function draw() {
           }
     else{
       if(swordGroup.isTouching(boy)) {           
+        estado = END;
         MORTE();
         swordGroup.destroyEach();
         diamondsG.destroyEach();
         cashG.destroyEach();
         jwelleryG.destroyEach();
+        
     }
 
   }
-  
   drawSprites();
   textSize(20);
   fill(255);
@@ -154,9 +157,7 @@ function createSword(){
 }
 
 function MORTE(){
-  gameOver.addImage("morreu", gameOverImg);
-  
-  
+  gameOver.addImage("morreu", gameOverImg);  
   swordGroup.setVelocityYEach(0);
   diamondsG.setVelocityYEach(0);
   cashG.setVelocityYEach(0); 
@@ -165,5 +166,6 @@ function MORTE(){
   path.velocityY = 0;
   boy.changeAnimation("morto",boyparado);
   gameOver.visible = true;
+
 }
 
